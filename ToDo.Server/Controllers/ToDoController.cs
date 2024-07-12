@@ -20,7 +20,7 @@ namespace ToDo.Server.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetToDoList()
         {
-            var ToDoList = _service.GetAll();
+            var ToDoList = await _service.GetAll();
             if (ToDoList == null) 
             { 
                 return NotFound();
@@ -28,20 +28,50 @@ namespace ToDo.Server.Controllers
             return Ok(ToDoList);
         }
 
-        [HttpPost]
+        [HttpGet("GetToDoListById")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetToDoListById(Guid Id)
+        {
+            var ToDoList = await _service.GetItem(Id);
+            if (ToDoList == null)
+            {
+                return NotFound();
+            }
+            return Ok(ToDoList);
+        }
+
+        [HttpPost("CreateItem")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> CreateItem([FromBody] ItemDto itemDto)
+        public async Task<IActionResult> CreateItem([FromBody] AddItemDto itemDto)
         {
             var createdProduct = await _service.Add(itemDto);
 
-            return CreatedAtAction(nameof(_service.GetItem), new { Id = createdProduct.Id }, createdProduct);
+            return CreatedAtAction(nameof(GetToDoListById), new { Id = createdProduct.Id }, createdProduct);
+        }
+
+        [HttpPost("Update/{Id}")]
+        public async Task<IActionResult> UpdateItem(Guid Id, [FromBody] AddItemDto itemDto)
+        {
+            var ToDoItem = _service.GetItem(Id);
+
+            if (ToDoItem == null)
+            {
+                return NotFound();
+            }
+
+            await _service.Update(Id, itemDto);
+
+            return NoContent();
         }
 
         [HttpDelete("{Id}")]
         public async Task<IActionResult> DeleteItem(Guid Id)
         {
             var ToDoItem = _service.GetItem(Id);
+
             if (ToDoItem == null)
             {
                 return NotFound();

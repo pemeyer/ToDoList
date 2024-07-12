@@ -15,13 +15,15 @@ namespace ToDo.Server.Services
             _context = context; 
         }
 
-        public async Task<Item> Add(ItemDto itemDto)
+        public async Task<Item> Add(AddItemDto itemDto)
         {
             Guid id = Guid.NewGuid();
             Item item = new Item()
             {
                 Id = id,
-                ToDo = itemDto.Todo
+                ToDo = itemDto.Todo,
+                IsChecked = false,
+                CreatedAt = DateTime.Now,
             };
 
             _context.Items.Add(item);
@@ -34,6 +36,7 @@ namespace ToDo.Server.Services
         {
             var item = await GetItem(id);
             _context.Items.Remove(item);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<List<Item>> GetAll()
@@ -44,6 +47,15 @@ namespace ToDo.Server.Services
         public async Task<Item> GetItem(Guid id)
         {
             return await _context.Items.FindAsync(id);
+        }
+
+        public async Task Update(Guid id, AddItemDto itemDto)
+        {
+            var item = await GetItem(id);
+            item.ToDo = itemDto.Todo;
+            item.IsChecked = itemDto.IsChecked;
+            _context.Items.Update(item);
+            await _context.SaveChangesAsync();
         }
     }
 }

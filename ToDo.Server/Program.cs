@@ -19,7 +19,17 @@ namespace ToDo.Server
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-
+            builder.Services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(policy =>
+                {
+                    policy.WithOrigins("https://127.0.0.1:4200", "http://localhost:4200")
+                          .AllowAnyHeader()
+                          .AllowAnyMethod()
+                          .AllowCredentials() // Only if you need credentials (e.g., cookies)
+                          .WithExposedHeaders("Content-Disposition"); // Optional: Specify additional exposed headers if needed
+                });
+            });
             var app = builder.Build();
 
             app.UseDefaultFiles();
@@ -31,7 +41,8 @@ namespace ToDo.Server
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
+            app.UseRouting();
+            app.UseCors();
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
