@@ -1,0 +1,14 @@
+<div>
+  <h1>To-Do List</h1>
+  <input [(ngModel)]="newToDoTitle" placeholder="New to-do title" />
+  <button (click)="addToDoItem()">Add</button>
+
+  <ul>
+    <li *ngFor="let todo of todos">
+      <app-to-do-list-item
+       [todo]="todo"
+       (delete)="deleteToDoItem(todo.id)">
+      </app-to-do-list-item>
+    </li>
+  </ul>
+</div>
