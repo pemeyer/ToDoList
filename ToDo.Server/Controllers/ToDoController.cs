@@ -67,6 +67,18 @@ namespace ToDo.Server.Controllers
             return NoContent();
         }
 
+        [HttpPatch("ToggleItem/{Id}")]
+        public async Task<IActionResult> ToggleItem(Guid Id, [FromBody] ToggleCompleteDto toggleCompleteDto)
+        {
+            var item = await _service.GetItem(Id);
+
+            if (item == null) { return NotFound(); }
+
+            await _service.ToggleItem(Id, toggleCompleteDto.IsChecked);
+
+            return NoContent();
+        }
+
         [HttpDelete("{Id}")]
         public async Task<IActionResult> DeleteItem(Guid Id)
         {

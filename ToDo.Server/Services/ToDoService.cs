@@ -57,5 +57,13 @@ namespace ToDo.Server.Services
             _context.Items.Update(item);
             await _context.SaveChangesAsync();
         }
+
+        public async Task ToggleItem(Guid id, bool isChecked)
+        {
+            var item = _context.Items.Find(id);
+            item.IsChecked = isChecked;
+            _context.Items.Update(item);
+            await _context.SaveChangesAsync();
+        }
     }
 }
