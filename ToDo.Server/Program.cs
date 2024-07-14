@@ -31,6 +31,7 @@ namespace ToDo.Server
                           .WithExposedHeaders("Content-Disposition"); // Optional: Specify additional exposed headers if needed
                 });
             });
+            builder.Services.AddTransient<ExceptionHandlingMiddleware>();
             var app = builder.Build();
 
             app.UseDefaultFiles();
@@ -42,10 +43,10 @@ namespace ToDo.Server
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
-            app.UseMiddleware<ExceptionHandlingMiddleware>();
             app.UseRouting();
             app.UseCors();
+
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
