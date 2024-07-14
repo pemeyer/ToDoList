@@ -9,8 +9,13 @@ import { ToDo } from '../models/Todo'
 export class ToDoListItemComponent {
   @Input() todo!: ToDo;
   @Output() delete = new EventEmitter<string>();
+  @Output() toggle = new EventEmitter<ToDo>();
 
   onDelete(): void {
     this.delete.emit(this.todo.id);
+  }
+
+  toggleComplete() {
+    this.toggle.emit(this.todo);
   }
 }

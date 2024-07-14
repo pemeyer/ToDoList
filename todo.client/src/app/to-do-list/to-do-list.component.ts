@@ -10,6 +10,8 @@ import { ToDo } from '../models/Todo';
 })
 export class ToDoListComponent {
   todos: ToDo[] = [];
+  todosChecked: ToDo[] = [];
+
   newToDoTitle: string = '';
 
   constructor(private service :ToDoService) {
@@ -42,14 +44,27 @@ export class ToDoListComponent {
 
   loadToDos(): void {
     this.service.getToDos().subscribe((data: ToDo[]) => {
-      console.log(data);
-      this.todos = data;
+      this.todos = data.filter(options => !options.isChecked);
+      this.todosChecked = data.filter(options => options.isChecked)
+
     })
   }
 
   deleteToDoItem(id: string): void {
     this.service.deleteToDo(id).subscribe(() => {
       this.todos = this.todos.filter(todo => todo.id !== id);
+
+      const checkedIndex = this.todosChecked.findIndex(todo => todo.id === id);
+      if (checkedIndex !== -1) {
+        this.todosChecked.splice(checkedIndex, 1);
+      }
+    });
+  }
+
+
+  toggleChecked(todo: ToDo): void {
+    this.service.toggleItem(todo).subscribe(() => {
+      this.loadToDos();
     })
   }
 }

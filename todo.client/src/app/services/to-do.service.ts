@@ -25,4 +25,10 @@ export class ToDoService {
   deleteToDo(id:string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+
+  toggleItem(todo: ToDo): Observable<any> {
+    const url = `${this.apiUrl}/ToggleItem/${todo.id}`;
+    const isChecked = !todo.isChecked;
+    return this.http.patch(url, { isChecked });
+  }
 } 

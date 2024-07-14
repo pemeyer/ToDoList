@@ -1,5 +1,11 @@
-<div>
-  <input type="checkbox" [checked]="todo.isChecked" />
-  <span>{{todo.toDo}}</span>
-  <button (click)="onDelete()">Delete</button>
+<div class="todo-item">
+  <div class="todo-title">
+    <input type="checkbox" [checked]="todo.isChecked" (change)="toggleComplete()" />
+    <span [ngClass]="{'completed': todo.isChecked}">{{todo.toDo}}</span>
+  </div>
+  <div class="todo-action">
+    <span class="delete-icon" (click)="onDelete()">
+      <i class="fas fa-trash-alt"></i>
+    </span>
+  </div>
 </div>

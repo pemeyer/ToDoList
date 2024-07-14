@@ -1,0 +1,54 @@
+/* src/app/to-do-list/to-do-list.component.css */
+.todo-list-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+  .todo-list-container input {
+    width: calc(100% - 80px);
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+
+  .todo-list-container button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+    .todo-list-container button:hover {
+      background-color: #0056b3;
+    }
+
+.todo-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.todo-list-item {
+  margin-bottom: 10px;
+}
+
+.completed-heading {
+  font-size: 18px;
+  color:black;
+  font-weight: bold;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin-bottom: 10px;
+  margin-right: auto;
+}

@@ -1,14 +1,25 @@
-<div>
-  <h1>To-Do List</h1>
-  <input [(ngModel)]="newToDoTitle" placeholder="New to-do title" />
-  <button (click)="addToDoItem()">Add</button>
+<div class="todo-list-container">
+  <input [(ngModel)]="newToDoTitle" placeholder="Try typing 'Feed the cat'" (keyup.enter)="addToDoItem()" />
 
-  <ul>
+  <ul class="todo-list">
     <li *ngFor="let todo of todos">
-      <app-to-do-list-item
-       [todo]="todo"
-       (delete)="deleteToDoItem(todo.id)">
+      <app-to-do-list-item [todo]="todo"
+                           (delete)="deleteToDoItem(todo.id)"
+                           (toggle)="toggleChecked(todo)">
       </app-to-do-list-item>
     </li>
   </ul>
+
+      <p class="completed-heading" *ngIf="todosChecked.length > 0">Completed</p>
+
+
+  <ul class="todo-list">
+    <li *ngFor="let todo of todosChecked">
+      <app-to-do-list-item [todo]="todo"
+                           (delete)="deleteToDoItem(todo.id)"
+                           (toggle)="toggleChecked(todo)">
+      </app-to-do-list-item>
+    </li>
+  </ul>
+
 </div>
