@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using ToDo.Server.Models;
 using ToDo.Server.Services.Interfaces;
 using ToDo.Server.Services;
+using ToDo.Server.Middleware;
 
 namespace ToDo.Server
 {
@@ -41,13 +42,13 @@ namespace ToDo.Server
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
             app.UseRouting();
             app.UseCors();
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
-
             app.MapControllers();
 
             app.MapFallbackToFile("/index.html");

@@ -52,6 +52,9 @@ namespace ToDo.Server.Controllers
             return CreatedAtAction(nameof(GetToDoListById), new { Id = createdProduct.Id }, createdProduct);
         }
 
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpPost("Update/{Id}")]
         public async Task<IActionResult> UpdateItem(Guid Id, [FromBody] AddItemDto itemDto)
         {
@@ -67,6 +70,9 @@ namespace ToDo.Server.Controllers
             return NoContent();
         }
 
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpPatch("ToggleItem/{Id}")]
         public async Task<IActionResult> ToggleItem(Guid Id, [FromBody] ToggleCompleteDto toggleCompleteDto)
         {
@@ -79,6 +85,9 @@ namespace ToDo.Server.Controllers
             return NoContent();
         }
 
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpDelete("{Id}")]
         public async Task<IActionResult> DeleteItem(Guid Id)
         {
