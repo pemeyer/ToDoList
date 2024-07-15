@@ -26,9 +26,7 @@ namespace ToDo.Server
                 {
                     policy.WithOrigins("https://127.0.0.1:4200", "http://localhost:4200")
                           .AllowAnyHeader()
-                          .AllowAnyMethod()
-                          .AllowCredentials() // Only if you need credentials (e.g., cookies)
-                          .WithExposedHeaders("Content-Disposition"); // Optional: Specify additional exposed headers if needed
+                          .AllowAnyMethod();
                 });
             });
             builder.Services.AddTransient<ExceptionHandlingMiddleware>();
