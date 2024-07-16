@@ -6,3 +6,6 @@ body {
   background-size: cover; /* Ensure the background image covers the entire viewport */
   height: 100vh; /* Set the body to take up the full viewport height */
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
