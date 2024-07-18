@@ -6,6 +6,6 @@ namespace ToDo.Server.Models
     {
         public ToDoContext(DbContextOptions dbContextOptions) : base(dbContextOptions) { }
 
-        public DbSet<Item> Items { get; set; }
+        public virtual DbSet<Item> Items { get; set; }
     }
 }

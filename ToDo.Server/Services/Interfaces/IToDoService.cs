@@ -10,6 +10,6 @@ namespace ToDo.Server.Services.Interfaces
         public Task ToggleItem(Guid id, bool IsChecked);
         public Task<Item> Add(AddItemDto itemDto);
         public Task<Item> GetItem(Guid id);
-        public Task<List<Item> > GetAll();
+        public Task<List<Item>> GetAll();
     }
 }

@@ -28,7 +28,7 @@ namespace ToDo.Server.Controllers
             return Ok(ToDoList);
         }
 
-        [HttpGet("GetToDoListById")]
+        [HttpGet("GetToDoListById/{Id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -58,7 +58,7 @@ namespace ToDo.Server.Controllers
         [HttpPost("Update/{Id}")]
         public async Task<IActionResult> UpdateItem(Guid Id, [FromBody] AddItemDto itemDto)
         {
-            var ToDoItem = _service.GetItem(Id);
+            var ToDoItem = await _service.GetItem(Id);
 
             if (ToDoItem == null)
             {
@@ -91,7 +91,7 @@ namespace ToDo.Server.Controllers
         [HttpDelete("{Id}")]
         public async Task<IActionResult> DeleteItem(Guid Id)
         {
-            var ToDoItem = _service.GetItem(Id);
+            var ToDoItem = await _service.GetItem(Id);
 
             if (ToDoItem == null)
             {

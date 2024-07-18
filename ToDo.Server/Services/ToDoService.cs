@@ -60,7 +60,7 @@ namespace ToDo.Server.Services
 
         public async Task ToggleItem(Guid id, bool isChecked)
         {
-            var item = _context.Items.Find(id);
+            var item = await _context.Items.FindAsync(id);
             item.IsChecked = isChecked;
             _context.Items.Update(item);
             await _context.SaveChangesAsync();
